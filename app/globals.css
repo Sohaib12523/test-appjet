@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --base: #e0e5ec;
+  --ink: #1f2a44;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  background: var(--base);
+  color: var(--ink);
+  min-height: 100%;
+}
+
+::selection {
+  background: #2f6bff33;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c2c9d8;
+  border-radius: 8px;
+  border: 2px solid var(--base);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aab4cc;
+}
+
+@layer components {
+  .neu-card {
+    @apply rounded-2xl bg-base shadow-neu;
+  }
+  .neu-card-sm {
+    @apply rounded-xl bg-base shadow-neu-sm;
+  }
+  .neu-inset {
+    @apply rounded-xl bg-base shadow-neu-in;
+  }
+  .neu-inset-sm {
+    @apply rounded-lg bg-base shadow-neu-in-sm;
+  }
+
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl bg-base px-4 py-2.5 text-sm font-semibold text-ink shadow-neu-sm transition-all duration-150 hover:text-accent active:shadow-neu-in-sm disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply inline-flex select-none items-center justify-center gap-1.5 rounded-lg bg-base px-3 py-1.5 text-xs font-semibold text-ink shadow-neu-xs transition-all duration-150 hover:text-accent active:shadow-neu-in-sm disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white transition-all duration-150 hover:bg-accent-dark active:shadow-neu-in-sm disabled:pointer-events-none disabled:opacity-50;
+    box-shadow: 5px 5px 12px #c6ccd8, -5px -5px 12px #ffffff,
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  .btn-primary:active {
+    box-shadow: inset 3px 3px 8px #1f4fd1, inset -3px -3px 8px #4f83ff;
+  }
+  .btn-danger {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-xl bg-base px-4 py-2.5 text-sm font-semibold text-bad shadow-neu-sm transition-all duration-150 active:shadow-neu-in-sm disabled:pointer-events-none disabled:opacity-50;
+  }
+  .icon-btn {
+    @apply inline-flex h-9 w-9 select-none items-center justify-center rounded-xl bg-base text-sub shadow-neu-sm transition-all duration-150 hover:text-accent active:shadow-neu-in-sm;
+  }
+
+  .input {
+    @apply w-full rounded-xl bg-base px-3.5 py-2.5 text-sm text-ink shadow-neu-in-sm outline-none transition-shadow placeholder:text-faint focus:shadow-neu-in;
+  }
+  .input:focus {
+    outline: 2px solid #2f6bff55;
+    outline-offset: 1px;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-sub;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold shadow-neu-xs;
+  }
+  .seg {
+    @apply inline-flex items-center gap-1 rounded-xl bg-base p-1 shadow-neu-in-sm;
+  }
+  .seg-item {
+    @apply cursor-pointer rounded-lg px-3.5 py-1.5 text-xs font-semibold text-sub transition-all;
+  }
+  .seg-item-active {
+    @apply bg-base text-accent shadow-neu-xs;
+  }
+
+  .th {
+    @apply px-4 py-3 text-left text-[11px] font-bold uppercase tracking-wider text-faint;
+  }
+  .td {
+    @apply px-4 py-3.5 text-sm text-ink;
+  }
+  .tr {
+    @apply transition-colors;
+  }
+  .tr:hover {
+    background: #2f6bff08;
+  }
+
+  .kpi-num {
+    @apply text-[26px] font-extrabold leading-tight tracking-tight text-ink;
+  }
+  .card-title {
+    @apply text-sm font-bold text-ink;
+  }
+  .muted {
+    @apply text-sm text-sub;
+  }
+  .tiny {
+    @apply text-xs text-faint;
+  }
+
+  .tab-item {
+    @apply cursor-pointer whitespace-nowrap rounded-xl px-4 py-2 text-sm font-semibold text-sub transition-all hover:text-ink;
+  }
+  .tab-item-active {
+    @apply bg-base text-accent shadow-neu-sm;
+  }
+
+  .nav-item {
+    @apply flex cursor-pointer items-center gap-3 rounded-xl px-3.5 py-2.5 text-[13px] font-semibold text-sub transition-all duration-150 hover:text-ink;
+  }
+  .nav-item-active {
+    @apply bg-base text-accent shadow-neu-sm;
+  }
+
+  .timeline-dot {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-base shadow-neu-xs;
+  }
+}
+
+.animate-fade {
+  animation: fadeIn 0.18s ease-out;
+}
+.animate-up {
+  animation: slideUp 0.22s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+.animate-left {
+  animation: slideLeft 0.24s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.skeleton {
+  border-radius: 12px;
+  background: linear-gradient(90deg, #d5dbe6 25%, #e8edf5 50%, #d5dbe6 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
