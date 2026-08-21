@@ -34,7 +34,7 @@ const ALL: Perm[] = [
   "settings.edit","conflict.run","retainers.view","retainers.manage",
 ];
 
-const PERMS: Record<Role, Perm[]> = {
+export const PERMS: Record<Role, Perm[]> = {
   super_admin: [...ALL, "portal"],
   attorney: ALL.filter((p) => p !== "settings.edit" && p !== "automations.edit"),
   paralegal: ["leads.view","contacts.view","clients.view","matters.view","calendar.view","tasks.view","documents.view","communications.view","conflict.run","retainers.view","reports.view"],
@@ -89,6 +89,7 @@ interface StoreShape {
   markAllNotifsRead: () => void;
   markNotifRead: (id: string) => void;
   toggleAutomation: (id: string) => void;
+  addAutomation: (r: { name: string; trigger: string; actions: string[] }) => void;
   saveIntakeForm: (form: IntakeForm) => void;
   deleteIntakeForm: (id: string) => void;
   submitIntake: (formId: string, data: Record<string, string>) => void;
