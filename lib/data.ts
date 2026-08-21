@@ -170,4 +170,52 @@ const activities: Activity[] = [
   { id: "ac11", at: stampDaysAgo(5, 15, 30), actor: "Daniel Reyes", text: "Uploaded SaveMart settlement offer", matterId: "m7", clientId: "c8" },
   { id: "ac12", at: stampDaysAgo(6, 13, 20), actor: "Marcus Webb", text: "Logged interrogatories received from Apex counsel", matterId: "m3", clientId: "c3" },
 ];
-// __PART5__
+const retainers: Retainer[] = [
+  { id: "r1", leadId: "l10", title: "Engagement & Retainer — Partnership Dispute", amount: 10000, feeStructure: "Hourly at $360/hr against $10,000 replenishing retainer", status: "Sent", createdAt: stampDaysAgo(3, 12, 0), sentAt: stampDaysAgo(2, 13, 0) },
+  { id: "r2", leadId: "l11", title: "Retainer Agreement — Divorce & Custody", amount: 7500, feeStructure: "Hourly at $340/hr against $7,500 retainer", status: "Signed", createdAt: stampDaysAgo(6, 10, 0), sentAt: stampDaysAgo(5, 9, 0), viewedAt: stampDaysAgo(4, 14, 20), signedAt: stampDaysAgo(1, 9, 35) },
+  { id: "r3", leadId: "l9", title: "Retainer Agreement — Asylum Petition", amount: 4500, feeStructure: "Flat fee $9,000 — $4,500 initial, $4,500 at filing", status: "Pending Signature", createdAt: stampDaysAgo(2, 10, 0), sentAt: stampDaysAgo(1, 16, 45), viewedAt: stampDaysAgo(0, 8, 10) },
+  { id: "r4", leadId: "l5", title: "Engagement Letter — Vendor Breach of Contract", amount: 5000, feeStructure: "Hourly at $360/hr against $5,000 retainer", status: "Draft", createdAt: stampDaysAgo(1, 15, 0) },
+  { id: "r5", leadId: "l12", title: "Contingency Fee Agreement — Truck Accident", amount: 0, feeStructure: "33⅓% contingency pre-suit, 40% after filing", status: "Signed", createdAt: stampDaysAgo(60, 10, 0), sentAt: stampDaysAgo(59, 10, 0), viewedAt: stampDaysAgo(59, 12, 0), signedAt: stampDaysAgo(58, 10, 0) },
+];
+
+const timeEntries: TimeEntry[] = [
+  { id: "te1", matterId: "m1", userId: "u2", date: addDaysISO(-1), hours: 2.4, rate: 385, description: "Revise demand letter; damages analysis", billable: true, invoiced: false },
+  { id: "te2", matterId: "m1", userId: "u4", date: addDaysISO(-2), hours: 1.1, rate: 150, description: "Organize medical records; index exhibits", billable: true, invoiced: false },
+  { id: "te3", matterId: "m2", userId: "u3", date: addDaysISO(-1), hours: 1.8, rate: 340, description: "Review biometrics notice; update filing calendar", billable: true, invoiced: false },
+  { id: "te4", matterId: "m2", userId: "u4", date: addDaysISO(-3), hours: 2.6, rate: 150, description: "Compile country-conditions evidence bundle", billable: true, invoiced: false },
+  { id: "te5", matterId: "m3", userId: "u9", date: addDaysISO(-2), hours: 1.5, rate: 360, description: "Settlement term analysis; client strategy call", billable: true, invoiced: false },
+  { id: "te6", matterId: "m4", userId: "u3", date: addDaysISO(0), hours: 3.2, rate: 340, description: "Final hearing preparation; direct exam outline", billable: true, invoiced: false },
+  { id: "te7", matterId: "m5", userId: "u9", date: addDaysISO(-1), hours: 2.9, rate: 360, description: "Draft motion to suppress; legal research", billable: true, invoiced: false },
+  { id: "te8", matterId: "m7", userId: "u2", date: addDaysISO(-3), hours: 0.9, rate: 385, description: "Settlement call with client; counter-strategy", billable: true, invoiced: false },
+  { id: "te9", matterId: "m6", userId: "u3", date: addDaysISO(-4), hours: 1.4, rate: 340, description: "Revise trust instrument per client comments", billable: true, invoiced: false },
+  { id: "te10", matterId: "m8", userId: "u9", date: addDaysISO(-5), hours: 1.2, rate: 360, description: "Trademark specimen review; USPTO goods description", billable: true, invoiced: false },
+];
+
+const expenses: Expense[] = [
+  { id: "ex1", matterId: "m1", date: addDaysISO(-10), amount: 285, category: "Medical Records", description: "Peachtree Orthopedics records fee", billable: true },
+  { id: "ex2", matterId: "m1", date: addDaysISO(-32), amount: 435, category: "Filing Fee", description: "Complaint filing — Fulton Superior Court", billable: true },
+  { id: "ex3", matterId: "m2", date: addDaysISO(-28), amount: 220, category: "Translation", description: "Certified translation — affidavits", billable: true },
+  { id: "ex4", matterId: "m5", date: addDaysISO(-6), amount: 75, category: "Records Request", description: "APD open-records request fee", billable: true },
+  { id: "ex5", matterId: "m7", date: addDaysISO(-40), amount: 1200, category: "Mediation", description: "Mediation center deposit (split)", billable: true },
+  { id: "ex6", matterId: "m4", date: addDaysISO(-15), amount: 350, category: "Service of Process", description: "Process server — custody petition", billable: true },
+];
+
+const invoices: Invoice[] = [
+  { id: "inv1", number: "INV-2025-0101", clientId: "c1", matterId: "m1", issueDate: addDaysISO(-30), dueDate: addDaysISO(-16), items: [{ desc: "Filing fee — complaint", amount: 435 }, { desc: "Medical records retrieval", amount: 285 }, { desc: "Process service", amount: 120 }, { desc: "Postage & copies", amount: 400 }], status: "Paid", payments: [{ id: "p1", invoiceId: "inv1", date: addDaysISO(-18), amount: 1240, method: "Card" }] },
+  { id: "inv2", number: "INV-2025-0102", clientId: "c3", matterId: "m3", issueDate: addDaysISO(-14), dueDate: addDaysISO(0), items: [{ desc: "Professional fees — negotiation phase (14.0 hrs)", amount: 5040 }, { desc: "Document review & analysis", amount: 3360 }], status: "Partial", payments: [{ id: "p2", invoiceId: "inv2", date: addDaysISO(-6), amount: 5000, method: "ACH" }] },
+  { id: "inv3", number: "INV-2025-0103", clientId: "c6", matterId: "m6", issueDate: addDaysISO(-4), dueDate: addDaysISO(10), items: [{ desc: "Estate plan package — flat fee (50%)", amount: 2800 }], status: "Sent", payments: [] },
+  { id: "inv4", number: "INV-2025-0094", clientId: "c7", matterId: "m8", issueDate: addDaysISO(-45), dueDate: addDaysISO(-31), items: [{ desc: "Trademark clearance search", amount: 950 }, { desc: "Application preparation (6.0 hrs)", amount: 2200 }], status: "Overdue", payments: [] },
+  { id: "inv5", number: "INV-2025-0105", clientId: "c4", matterId: "m4", issueDate: addDaysISO(-3), dueDate: addDaysISO(11), items: [{ desc: "Professional fees — hearing prep (9.5 hrs)", amount: 3230 }, { desc: "Custody evaluation coordination", amount: 970 }], status: "Sent", payments: [] },
+];
+
+const notifications: NotificationItem[] = [
+  { id: "nt1", at: stampDaysAgo(0, 8, 5), text: "New lead: Priya Nair (Immigration — H-1B Transfer)", kind: "New Lead", read: false },
+  { id: "nt2", at: stampDaysAgo(0, 7, 30), text: "Email from Robert Lindqvist re: engagement letter", kind: "New Message", read: false },
+  { id: "nt3", at: stampDaysAgo(0, 6, 0), text: "Task overdue: Order updated medical records — Jimenez", kind: "Task Overdue", read: false, userId: "u4" },
+  { id: "nt4", at: stampDaysAgo(1, 9, 40), text: "Retainer signed: Tanya Becker — ready to convert to client", kind: "Retainer Signed", read: false },
+  { id: "nt5", at: stampDaysAgo(1, 16, 45), text: "Consultation completed: Mariana Flores — follow-up task created", kind: "Consultation", read: true },
+  { id: "nt6", at: stampDaysAgo(2, 11, 25), text: "Document uploaded: Demand Letter — Draft v2 (Donovan v. Crossway)", kind: "Document Uploaded", read: true },
+  { id: "nt7", at: stampDaysAgo(0, 5, 0), text: "Upcoming deadline: Final hearing — Mitchell custody in 3 days", kind: "Deadline", read: false },
+  { id: "nt8", at: stampDaysAgo(1, 8, 0), text: "Task assigned: Prepare asylum filing timeline — Mariana Flores", kind: "Task Assigned", read: true, userId: "u3" },
+];
+// __PART6__
