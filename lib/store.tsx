@@ -750,7 +750,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     addComm, addNote, addDoc, updateDoc, deleteDoc, addDocVersion,
     addRetainer, setRetainerStatus, convertLead, addInvoice, recordPayment,
     addTimeEntry, addExpense, addContact, updateMatter,
-    markAllNotifsRead, markNotifRead, toggleAutomation,
+    markAllNotifsRead, markNotifRead, toggleAutomation, addAutomation,
     saveIntakeForm, deleteIntakeForm, submitIntake, processSubmission,
     runConflictCheck, updateUser,
   };
