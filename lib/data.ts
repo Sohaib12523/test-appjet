@@ -126,4 +126,48 @@ const documents: DocFile[] = [
   { id: "d15", name: "Trademark Specimen — Apex.png", folder: "BUS-2025-0015 Apex TM", matterId: "m8", clientId: "c7", uploadedById: "u9", uploadedAt: stampDaysAgo(7, 10, 5), sizeKb: 840, ext: "png", versions: [{ v: 1, at: stampDaysAgo(7, 10, 5), byId: "u9" }] },
   { id: "d16", name: "Engagement Letter Template.docx", folder: "Templates", uploadedById: "u1", uploadedAt: stampDaysAgo(60, 10, 0), sizeKb: 42, ext: "docx", versions: [{ v: 1, at: stampDaysAgo(60, 10, 0), byId: "u1" }] },
 ];
-// __PART4__
+const communications: Communication[] = [
+  { id: "cm1", type: "Email", direction: "Inbound", fromName: "Marcus Delgado", toName: "Lena Kowalski", subject: "Re: Your injury claim consultation", body: "Thanks for the quick response. I have the police report and my MRI results ready to send over. The insurance adjuster keeps calling me — should I talk to them?", at: stampDaysAgo(0, 8, 55), leadId: "l1" },
+  { id: "cm2", type: "Phone Call", direction: "Outbound", fromName: "Lena Kowalski", toName: "Sofia Marino", body: "Discussed custody timeline and temporary order. Sofia will email the existing court order before Friday. Consultation slot offered for next week.", at: stampDaysAgo(1, 11, 5), leadId: "l3" },
+  { id: "cm3", type: "Email", direction: "Outbound", fromName: "Daniel Reyes", toName: "Sarah Friedman", subject: "Donovan v. Crossway — discovery schedule", body: "Confirming the Whitfield deposition for next week and requesting defendant's driver logs within 10 days per our meet-and-confer.", at: stampDaysAgo(1, 15, 20), matterId: "m1", clientId: "c1", userId: "u2" },
+  { id: "cm4", type: "SMS", direction: "Inbound", fromName: "Rachel Donovan", toName: "LawFlow Firm", body: "Hi, is my case update meeting still on for tomorrow at 11?", at: stampDaysAgo(1, 18, 40), matterId: "m1", clientId: "c1" },
+  { id: "cm5", type: "Internal Note", direction: "Internal", fromName: "Grace Okafor", toName: "File", body: "Mitchell final hearing prep: custody evaluator's concerns are mostly about the father's relocation. Prepare direct exam outline.", at: stampDaysAgo(1, 16, 10), matterId: "m4", userId: "u3" },
+  { id: "cm6", type: "Email", direction: "Inbound", fromName: "Robert Lindqvist", toName: "Victoria Chen", subject: "Re: Engagement letter", body: "Reviewed the engagement letter with my accountant. One question about the litigation holdback clause, then I'll sign.", at: stampDaysAgo(0, 7, 30), leadId: "l10" },
+  { id: "cm7", type: "Phone Call", direction: "Outbound", fromName: "Victoria Chen", toName: "Kevin O'Rourke", body: "Explained ALS hearing process and 30-day permit. Kevin confirmed he can attend the consultation tomorrow with paperwork.", at: stampDaysAgo(0, 9, 5), leadId: "l8" },
+  { id: "cm8", type: "Email", direction: "Inbound", fromName: "Hassan Yilmaz", toName: "Grace Okafor", subject: "Biometrics appointment letter", body: "I received the biometrics appointment notice from USCIS. Scan attached. The date works for me.", at: stampDaysAgo(2, 10, 50), matterId: "m2", clientId: "c2" },
+  { id: "cm9", type: "Internal Note", direction: "Internal", fromName: "Marcus Webb", toName: "File", body: "Yilmaz evidence bundle: still missing two affidavits. Followed up with translator for certified copies.", at: stampDaysAgo(2, 14, 35), matterId: "m2", userId: "u4" },
+  { id: "cm10", type: "Email", direction: "Outbound", fromName: "Lena Kowalski", toName: "Mariana Flores", subject: "Next steps after your consultation", body: "Thank you for meeting with Ms. Okafor. Attached is our engagement letter and the evidence checklist we discussed. The one-year deadline is important — please review this week.", at: stampDaysAgo(1, 16, 45), leadId: "l9" },
+  { id: "cm11", type: "SMS", direction: "Outbound", fromName: "LawFlow Firm", toName: "Angela Brooks", body: "Reminder: your consultation with Mr. Reyes is tomorrow at 10:00 AM by video. Reply YES to confirm.", at: stampDaysAgo(0, 8, 0), leadId: "l7" },
+  { id: "cm12", type: "Email", direction: "Inbound", fromName: "Tanya Becker", toName: "Lena Kowalski", subject: "Signed retainer attached", body: "Signed retainer attached. Also sending last year's P&L for the practice valuation. Looking forward to getting started.", at: stampDaysAgo(1, 9, 35), leadId: "l11" },
+  { id: "cm13", type: "Phone Call", direction: "Inbound", fromName: "Rosa Jimenez", toName: "Daniel Reyes", body: "Discussed the $82,500 offer. Rosa wants to counter at $90,000 and is comfortable waiting one more round.", at: stampDaysAgo(3, 13, 15), matterId: "m7", clientId: "c8" },
+  { id: "cm14", type: "Internal Note", direction: "Internal", fromName: "Amira Shah", toName: "File", body: "Reviewed Q3 intake metrics: PI conversion is strong, but response time on web forms slipped to 6h. Flag for automation tuning.", at: stampDaysAgo(4, 11, 0), userId: "u1" },
+  { id: "cm15", type: "Email", direction: "Outbound", fromName: "Grace Okafor", toName: "Priya Nair", subject: "H-1B transfer — document checklist", body: "Welcome! Attached is the document checklist for your transfer and H-4 EAD. Please send your current I-797 and recent pay stubs.", at: stampDaysAgo(0, 9, 40), leadId: "l2" },
+  { id: "cm16", type: "SMS", direction: "Inbound", fromName: "Deshawn Miller", toName: "LawFlow Firm", body: "Court is still Thursday right? Which courtroom?", at: stampDaysAgo(0, 10, 15), matterId: "m5", clientId: "c5" },
+];
+
+const notes: Note[] = [
+  { id: "n1", body: "Client's treating physician believes a second surgery is likely. Factor into demand range.", at: stampDaysAgo(6, 12, 0), authorId: "u2", matterId: "m1" },
+  { id: "n2", body: "Strong liability facts; dashcam footage preserved by witness.", at: stampDaysAgo(18, 15, 0), authorId: "u4", matterId: "m1" },
+  { id: "n3", body: "Flores consultation: credible fear indicators present. Prioritize one-year deadline.", at: stampDaysAgo(1, 17, 20), authorId: "u3", leadId: "l9" },
+  { id: "n4", body: "Delgado: commercial policy limits likely $1M. Verify carrier before consultation.", at: stampDaysAgo(0, 9, 50), authorId: "u5", leadId: "l1" },
+  { id: "n5", body: "Becker onboarding checklist started. Waiting on practice financials for valuation expert.", at: stampDaysAgo(1, 10, 30), authorId: "u3", leadId: "l11" },
+  { id: "n6", body: "Miller: dashcam request sent to APD under open records.", at: stampDaysAgo(5, 14, 0), authorId: "u9", matterId: "m5" },
+  { id: "n7", body: "Halvorsen wants trust to include special-needs provisions for grandson.", at: stampDaysAgo(9, 11, 0), authorId: "u3", matterId: "m6" },
+  { id: "n8", body: "Brightline: keep negotiation posture firm on delivery penalties; client authorized settlement floor of $150k.", at: stampDaysAgo(7, 16, 0), authorId: "u9", matterId: "m3" },
+];
+
+const activities: Activity[] = [
+  { id: "ac1", at: stampDaysAgo(0, 9, 5), actor: "Victoria Chen", text: "Called Kevin O'Rourke to confirm consultation", leadId: "l8" },
+  { id: "ac2", at: stampDaysAgo(0, 8, 55), actor: "Lena Kowalski", text: "Received email from Marcus Delgado with case documents notice", leadId: "l1" },
+  { id: "ac3", at: stampDaysAgo(0, 8, 0), actor: "System", text: "SMS consultation reminder sent to Angela Brooks", leadId: "l7" },
+  { id: "ac4", at: stampDaysAgo(1, 16, 45), actor: "Lena Kowalski", text: "Sent post-consultation engagement package to Mariana Flores", leadId: "l9" },
+  { id: "ac5", at: stampDaysAgo(1, 10, 0), actor: "Grace Okafor", text: "Marked consultation completed — recommended engagement", leadId: "l9" },
+  { id: "ac6", at: stampDaysAgo(1, 9, 40), actor: "Lena Kowalski", text: "Uploaded signed retainer from Tanya Becker", leadId: "l11" },
+  { id: "ac7", at: stampDaysAgo(2, 13, 0), actor: "Victoria Chen", text: "Sent retainer agreement to Robert Lindqvist", leadId: "l10" },
+  { id: "ac8", at: stampDaysAgo(2, 11, 25), actor: "Daniel Reyes", text: "Uploaded Demand Letter — Draft v2", matterId: "m1", clientId: "c1" },
+  { id: "ac9", at: stampDaysAgo(3, 13, 15), actor: "Daniel Reyes", text: "Phone call with Rosa Jimenez re: settlement counter", matterId: "m7", clientId: "c8" },
+  { id: "ac10", at: stampDaysAgo(4, 10, 20), actor: "Grace Okafor", text: "Filed I-589 supplement with USCIS", matterId: "m2", clientId: "c2" },
+  { id: "ac11", at: stampDaysAgo(5, 15, 30), actor: "Daniel Reyes", text: "Uploaded SaveMart settlement offer", matterId: "m7", clientId: "c8" },
+  { id: "ac12", at: stampDaysAgo(6, 13, 20), actor: "Marcus Webb", text: "Logged interrogatories received from Apex counsel", matterId: "m3", clientId: "c3" },
+];
+// __PART5__
