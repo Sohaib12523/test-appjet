@@ -113,7 +113,21 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(DB_KEY);
-      if (raw) setDb(JSON.parse(raw));
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        // Guard against stale/partial shapes from older builds
+        if (
+          parsed &&
+          Array.isArray(parsed.leads) &&
+          Array.isArray(parsed.matters) &&
+          Array.isArray(parsed.invoices) &&
+          Array.isArray(parsed.automations) &&
+          Array.isArray(parsed.intakeForms) &&
+          parsed.seq
+        ) {
+          setDb(parsed);
+        }
+      }
       const sess = window.localStorage.getItem(SESSION_KEY);
       if (sess) setSessionId(sess);
     } catch {}
@@ -611,6 +625,20 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const toggleAutomation = useCallback((id: string) => {
     mutate((d) => ({ ...d, automations: d.automations.map((a) => (a.id === id ? { ...a, active: !a.active } : a)) }));
   }, [mutate]);
+
+  const addAutomation = useCallback(
+    (r: { name: string; trigger: string; actions: string[] }) => {
+      mutate((d) => ({
+        ...d,
+        automations: [
+          ...d.automations,
+          { id: uid("au"), name: r.name, trigger: r.trigger, actions: r.actions, active: true, runs: 0 },
+        ],
+      }));
+      logAudit("CREATE", "automation", `Rule created: ${r.name}`);
+    },
+    [mutate, logAudit]
+  );
 
   const saveIntakeForm = useCallback(
     (form: IntakeForm) => {
