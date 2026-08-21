@@ -218,4 +218,110 @@ const notifications: NotificationItem[] = [
   { id: "nt7", at: stampDaysAgo(0, 5, 0), text: "Upcoming deadline: Final hearing — Mitchell custody in 3 days", kind: "Deadline", read: false },
   { id: "nt8", at: stampDaysAgo(1, 8, 0), text: "Task assigned: Prepare asylum filing timeline — Mariana Flores", kind: "Task Assigned", read: true, userId: "u3" },
 ];
-// __PART6__
+const automations: AutomationRule[] = [
+  { id: "au1", name: "New lead intake routing", trigger: "When a new lead is created", actions: ["Assign intake manager (Lena Kowalski)", "Send notification to intake team", "Create follow-up task due in 1 day"], active: true, runs: 47 },
+  { id: "au2", name: "Consultation confirmation", trigger: "When a consultation is booked", actions: ["Send confirmation email + SMS to lead", "Create reminder 24h before appointment"], active: true, runs: 23 },
+  { id: "au3", name: "Post-consultation follow-up", trigger: "When a consultation is completed", actions: ["Create follow-up task for assigned attorney", "Send engagement letter template"], active: true, runs: 15 },
+  { id: "au4", name: "Retainer signed onboarding", trigger: "When a retainer is signed", actions: ["Convert lead to client", "Create new matter (draft)", "Notify assigned attorney"], active: true, runs: 9 },
+  { id: "au5", name: "Overdue task escalation", trigger: "When a task becomes overdue", actions: ["Notify assigned user", "Notify supervising attorney after 24h"], active: true, runs: 12 },
+];
+
+const intakeForms: IntakeForm[] = [
+  {
+    id: "f1", name: "Personal Injury Intake", practiceArea: "Personal Injury", active: true, submissions: 34,
+    fields: [
+      { id: "q1", label: "Full name", type: "text", required: true },
+      { id: "q2", label: "Email", type: "email", required: true },
+      { id: "q3", label: "Phone", type: "phone", required: true },
+      { id: "q4", label: "Date of accident", type: "date", required: true },
+      { id: "q5", label: "Type of accident", type: "select", options: ["Auto Accident", "Truck Accident", "Slip and Fall", "Medical Malpractice", "Other"], required: true },
+      { id: "q6", label: "Describe your injuries", type: "textarea", required: true },
+      { id: "q7", label: "Was a police report filed?", type: "yesno", required: true },
+      { id: "q8", label: "Police report number", type: "text", required: false, conditionalOn: { fieldId: "q7", equals: "Yes" } },
+      { id: "q9", label: "Have you received medical treatment?", type: "yesno", required: true },
+      { id: "q10", label: "Treating provider / hospital", type: "text", required: false, conditionalOn: { fieldId: "q9", equals: "Yes" } },
+    ],
+  },
+  {
+    id: "f2", name: "Family Law Intake", practiceArea: "Family Law", active: true, submissions: 21,
+    fields: [
+      { id: "q1", label: "Full name", type: "text", required: true },
+      { id: "q2", label: "Email", type: "email", required: true },
+      { id: "q3", label: "Phone", type: "phone", required: true },
+      { id: "q4", label: "Matter type", type: "select", options: ["Divorce", "Child Custody", "Child Support", "Adoption", "Prenuptial Agreement"], required: true },
+      { id: "q5", label: "Do you have minor children?", type: "yesno", required: true },
+      { id: "q6", label: "Number of children and ages", type: "text", required: false, conditionalOn: { fieldId: "q5", equals: "Yes" } },
+      { id: "q7", label: "Brief description of your situation", type: "textarea", required: true },
+    ],
+  },
+  {
+    id: "f3", name: "Criminal Defense Intake", practiceArea: "Criminal Defense", active: true, submissions: 18,
+    fields: [
+      { id: "q1", label: "Full name", type: "text", required: true },
+      { id: "q2", label: "Email", type: "email", required: true },
+      { id: "q3", label: "Phone", type: "phone", required: true },
+      { id: "q4", label: "Charges filed", type: "text", required: true },
+      { id: "q5", label: "Date of arrest", type: "date", required: true },
+      { id: "q6", label: "Any prior record?", type: "yesno", required: true },
+      { id: "q7", label: "Brief details of prior record", type: "textarea", required: false, conditionalOn: { fieldId: "q6", equals: "Yes" } },
+      { id: "q8", label: "Next court date (if known)", type: "date", required: false },
+    ],
+  },
+  {
+    id: "f4", name: "Immigration Intake", practiceArea: "Immigration", active: true, submissions: 27,
+    fields: [
+      { id: "q1", label: "Full name", type: "text", required: true },
+      { id: "q2", label: "Email", type: "email", required: true },
+      { id: "q3", label: "Phone", type: "phone", required: true },
+      { id: "q4", label: "Case type", type: "select", options: ["Asylum", "H-1B / Employment Visa", "Family Petition", "Green Card", "Citizenship", "Deportation Defense"], required: true },
+      { id: "q5", label: "Date of entry to the US", type: "date", required: false },
+      { id: "q6", label: "Current immigration status", type: "text", required: true },
+      { id: "q7", label: "Describe your situation", type: "textarea", required: true },
+    ],
+  },
+  {
+    id: "f5", name: "Business Law Intake", practiceArea: "Business Law", active: false, submissions: 12,
+    fields: [
+      { id: "q1", label: "Full name", type: "text", required: true },
+      { id: "q2", label: "Company name", type: "text", required: true },
+      { id: "q3", label: "Email", type: "email", required: true },
+      { id: "q4", label: "Phone", type: "phone", required: true },
+      { id: "q5", label: "Issue type", type: "select", options: ["Contract Dispute", "Partnership Dispute", "Formation", "Employment", "Trademark", "Other"], required: true },
+      { id: "q6", label: "Estimated amount in dispute", type: "number", required: false },
+      { id: "q7", label: "Describe the issue", type: "textarea", required: true },
+    ],
+  },
+];
+
+const intakeSubmissions: IntakeSubmission[] = [
+  { id: "is1", formId: "f1", submittedAt: stampDaysAgo(1, 9, 12), status: "Processed", leadId: "l1", data: { "Full name": "Marcus Delgado", "Email": "marcus.delgado@mail.com", "Phone": "(404) 555-0182", "Date of accident": addDaysISO(-9), "Type of accident": "Auto Accident", "Describe your injuries": "Herniated disc L4-L5, neck pain, ongoing PT twice weekly.", "Was a police report filed?": "Yes", "Police report number": "APD-25-088114", "Have you received medical treatment?": "Yes", "Treating provider / hospital": "Peachtree Orthopedics" } },
+  { id: "is2", formId: "f4", submittedAt: stampDaysAgo(0, 8, 5), status: "Processed", leadId: "l2", data: { "Full name": "Priya Nair", "Email": "priya.nair@mail.com", "Phone": "(678) 555-0144", "Case type": "H-1B / Employment Visa", "Current immigration status": "H-1B, expires in 5 months", "Describe your situation": "Employer change; need transfer plus H-4 EAD for spouse." } },
+  { id: "is3", formId: "f2", submittedAt: stampDaysAgo(3, 14, 20), status: "Processed", leadId: "l3", data: { "Full name": "Sofia Marino", "Email": "sofia.marino@mail.com", "Phone": "(770) 555-0119", "Matter type": "Child Custody", "Do you have minor children?": "Yes", "Number of children and ages": "Two — ages 6 and 9", "Brief description of your situation": "Ex relocated out of county without notice; seeking primary custody." } },
+  { id: "is4", formId: "f1", submittedAt: stampDaysAgo(0, 7, 40), status: "New", data: { "Full name": "Dana Whitaker", "Email": "dana.whitaker@mail.com", "Phone": "(404) 555-0169", "Date of accident": addDaysISO(-4), "Type of accident": "Slip and Fall", "Describe your injuries": "Sprained ankle and bruised hip after fall in restaurant.", "Was a police report filed?": "No", "Have you received medical treatment?": "Yes", "Treating provider / hospital": "Urgent care — Emory" } },
+];
+
+const conflictChecks: ConflictCheck[] = [
+  { id: "cc1", at: stampDaysAgo(5, 10, 0), byId: "u5", query: "Crossway Freight", matches: [{ kind: "Matter", id: "m1", name: "Donovan v. Crossway Freight", context: "Crossway Freight Lines — opposing party (PI-2025-0142)" }, { kind: "Contact", id: "k7", name: "Crossway Freight Lines", context: "Company contact" }] },
+  { id: "cc2", at: stampDaysAgo(2, 15, 30), byId: "u9", query: "Lindqvist", matches: [{ kind: "Lead", id: "l10", name: "Robert Lindqvist", context: "Active lead — partnership dispute" }] },
+];
+
+const auditLogs: AuditLog[] = [
+  { id: "al1", at: stampDaysAgo(0, 8, 45), userId: "u1", action: "LOGIN", entity: "session", detail: "Amira Shah signed in (2FA verified)" },
+  { id: "al2", at: stampDaysAgo(0, 9, 40), userId: "u3", action: "SEND", entity: "communication", detail: "Email sent to Priya Nair — document checklist" },
+  { id: "al3", at: stampDaysAgo(1, 9, 40), userId: "u5", action: "UPLOAD", entity: "document", detail: "Uploaded Retainer Agreement — Becker (signed).pdf" },
+  { id: "al4", at: stampDaysAgo(1, 16, 45), userId: "u5", action: "UPDATE", entity: "lead", detail: "Mariana Flores status → Consultation Completed" },
+  { id: "al5", at: stampDaysAgo(2, 13, 0), userId: "u9", action: "SEND", entity: "retainer", detail: "Retainer sent to Robert Lindqvist ($10,000)" },
+  { id: "al6", at: stampDaysAgo(2, 11, 25), userId: "u2", action: "UPLOAD", entity: "document", detail: "Demand Letter — Draft v2 (matter PI-2025-0142)" },
+  { id: "al7", at: stampDaysAgo(3, 10, 15), userId: "u4", action: "CREATE", entity: "task", detail: "Task created: Prepare I-589 supplementary evidence index" },
+  { id: "al8", at: stampDaysAgo(4, 11, 0), userId: "u1", action: "VIEW", entity: "report", detail: "Exported revenue report Q3" },
+];
+
+export function seed(): DB {
+  return {
+    users, leads, contacts, clients, matters, tasks, appointments, documents,
+    communications, notes, activities, retainers, timeEntries, expenses,
+    invoices, notifications, automations, intakeForms, intakeSubmissions,
+    conflictChecks, auditLogs,
+    seq: { matter: 143, invoice: 106, retainer: 6, doc: 20, task: 20, comm: 20 },
+  };
+}
